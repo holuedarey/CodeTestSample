@@ -21,4 +21,4 @@ Api pagination can can be pass as page for page to access and size for number of
 More clarity is nopt given on relation between actor and movies and this could imporve the experience of the Api and the client side consuming to enhance fast response time instead of multiple calls
 
 ## Repository URL
-[Github link](http://www.wiu.edu/users/bio101/products)
+[Github link](https://github.com/holuedarey/CodeTestSample#readme)
