@@ -19,10 +19,10 @@ $uri = explode('/', trim($uri));
 
 // all of our endpoints start with /person
 // everything else results in a 404 Not Found
-if ($uri[2] !== 'actors') {
-    header("HTTP/1.1 404 Not Found");
-    exit();
-}
+//if ($uri[2] !== 'actors' or $uri[2] !== 'movies') {
+//    header("HTTP/1.1 404 Not Found");
+//    exit();
+//}
 
 // the user id is, of course, optional and must be a number:
 $movieId = null;
@@ -40,14 +40,13 @@ $requestMethod = $_SERVER["REQUEST_METHOD"];
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 $size = isset($_GET['size']) ? intval($_GET['size']) : 5;
 $movieId = isset($_GET["movieId"]) ? htmlspecialchars($_GET["movieId"]) : null;
-
+$actorId = isset($_GET["actorId"]) ? htmlspecialchars($_GET["actorId"]) : null;
 if (!$isActorEndpoint) {
     $moviesController = new MoviesController($conn, $requestMethod, $movieId, $page, $size);
     $moviesController->processRequest();
 }
 else {
-    var_dump("got here");
-    $actorsController = new ActorsController($conn, $requestMethod, $movieId, $page, $size);
+    $actorsController = new ActorsController($conn, $requestMethod, $actorId, $page, $size);
     $actorsController->processRequest();
 }
 

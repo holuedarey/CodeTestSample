@@ -81,7 +81,7 @@ class ActorsController
     private function createActorFromRequest()
     {
         $actor = (array) json_decode(file_get_contents('php://input'), true);
-        $inputs = array("title", "runtime", "release_date");
+        $inputs = array("actor_name", "date_of_birth", "movie_id");
         $validationError = $this->validateInput($actor, $inputs);
         if ($validationError) {
             return $this->unprocessableEntityResponse($validationError);
@@ -113,7 +113,7 @@ class ActorsController
         }
 
         $actor = (array) json_decode(file_get_contents('php://input'), true);
-        $inputs = array("title", "runtime", "release_dates");
+        $inputs = array("actor_name", "date_of_birth", "movie_id");
         $validationError = $this->validateInput($actor, $inputs, 'update');
         if ($validationError) {
             return $this->unprocessableEntityResponse($validationError);

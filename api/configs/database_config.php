@@ -16,16 +16,18 @@ class DatabaseConfig
     private $dbname;
     private $conn;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->servername = "127.0.0.1";
         $this->username = "root";
         $this->password = "";
         $this->dbname = "movie_collection";
     }
 
-    public function connect() {
+    public function connect()
+    {
         // Create connection
-        $this->conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname,  3306);
+        $this->conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname, 3306);
 
         // Check connection
         if ($this->conn->connect_errno) {
@@ -39,10 +41,10 @@ class DatabaseConfig
         $sql = "CREATE DATABASE IF NOT EXISTS $this->dbname";
         if ($this->conn->query($sql) === TRUE) {
             Logger::log("Database created successfully");
-            error_log( "Database created successfully");
+            error_log("Database created successfully");
         } else {
             Logger::log($this->conn->error);
-            error_log( "Error creating database: " . $this->conn->error);
+            error_log("Error creating database: " . $this->conn->error);
         }
 
         // Close connection
@@ -60,10 +62,10 @@ class DatabaseConfig
                 );";
 
         if ($this->conn->query($sql) === TRUE) {
-            error_log( "Table products created successfully");
+            error_log("Table products created successfully");
         } else {
-            Logger::log("Error creating table: " . $this->conn->error );
-            error_log("Error creating table: " . $this->conn->error );
+            Logger::log("Error creating table: " . $this->conn->error);
+            error_log("Error creating table: " . $this->conn->error);
         }
 
         // Create table comments
@@ -72,19 +74,21 @@ class DatabaseConfig
             movie_id VARCHAR(36) NOT NULL,
             actor_name VARCHAR(200) NOT NULL,
             date_of_birth DATETIME NOT NULL,
+            created_at DATETIME NOT NULL,
             FOREIGN KEY (movie_id) REFERENCES movies(id) ON DELETE CASCADE
         )";
 
         if ($this->conn->query($sql) === TRUE) {
-            error_log( "Table comments created successfully");
+            error_log("Table comments created successfully");
         } else {
-            error_log( "Error creating table: " . $this->conn->error);
+            error_log("Error creating table: " . $this->conn->error);
         }
 
         return $this->conn;
     }
 
-    public function close() {
+    public function close()
+    {
         $this->conn->close();
     }
 }

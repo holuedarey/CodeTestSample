@@ -25,16 +25,22 @@ class MovieService
             $total_pages = ceil($total_rows / $size);
 
             $query = "SELECT * FROM movies LIMIT $offset, $size";
+            $query = "SELECT movies.*,  actors.actor_name, actors.date_of_birth, actors.movie_id FROM movies  JOIN actors ON movies.id=actors.movie_id GROUP BY actors.id";
+//            $query = "SELECT
+//                         movies.*, actors.actor_name
+//                        FROM movies
+//                        LEFT JOIN
+//                         actors  ON movies.id = actors.movie_id;";
             $result = mysqli_query($this->db, $query);
 
-            $products = array();
+            $movies = array();
             while ($row = OrmHelper::getRows($result)) {
-                $products[] = $row;
+                $movies[] = $row;
             }
             $data = array();
             $data["total"] = $total_rows;
             $data["pages"] = $total_pages;
-            $data["items"] = $products;
+            $data["items"] = $movies;
             return $data;
         } catch (Exception $e) {
             exit($e->getMessage());
@@ -47,23 +53,23 @@ class MovieService
             $query = "SELECT * FROM movies WHERE id = '$id'";
             $result = mysqli_query($this->db, $query);
 
-            $product = null;
+            $movie = null;
             if (OrmHelper::hasRows($result)) {
-                $product = OrmHelper::getRows($result);
+                $movie = OrmHelper::getRows($result);
             }
 
-            return $product;
+            return $movie;
         } catch (Exception $e) {
             exit($e->getMessage());
         }
     }
 
-    public function insert(array $product)
+    public function insert(array $movie)
     {
         try {
-            $title = $product['title'];
-            $runtime = $product['runtime'];
-            $release_date = $product['release_date'];
+            $title = $movie['title'];
+            $runtime = $movie['runtime'];
+            $release_date = $movie['release_date'];
             $id = uniqid('mv_');
             $date = date('Y-m-d H:i:s');
 
@@ -74,12 +80,12 @@ class MovieService
         }
     }
 
-    public function update($id, array $product)
+    public function update($id, array $movie)
     {
         try {
-            $title = $product['title'];
-            $runtime = $product['runtime'];
-            $release_date = $product['release_date'];
+            $title = $movie['title'];
+            $runtime = $movie['runtime'];
+            $release_date = $movie['release_date'];
 
             $query = "UPDATE movies SET title = '$title', runtime = '$runtime', release_date = '$release_date' WHERE id = '$id'";
             return mysqli_query($this->db, $query);
