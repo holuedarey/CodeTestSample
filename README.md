@@ -1,20 +1,24 @@
-# wiustore
+# Code Test
 
-### Simple Product Listing App.
+### Movies and Actors Api Service.
 
-This project is built using PHP as backend and Angular in the frontend.
+This project is built using PHP as backend using OOP Concepts.
 
-### Frontend Operations
-- List products
-- List comments
-- Add comment
-- Infinite scroll
-- Back breadcrumbs to return back to main page.
 
 ### API Options
-- Product CRUD with pagination
-- COmment CRUD with pagination
+- Movies CRUD with pagination (route for movies is /api/movies)
+- Actors CRUD with pagination (route for actors is /api/actors)
 
-## Test URL
+### API Pagination
+Api pagination can can be pass as page for page to access and size for number of query to return. 
+ Example:  /api/movies?page=1&size=50
+ and for single entry /api/movies?movieId=? or  /api/actors?actorId=? 
 
-[Demo link](http://www.wiu.edu/users/bio101/products)
+
+
+
+### Limitation
+More clarity is nopt given on relation between actor and movies and this could imporve the experience of the Api and the client side consuming to enhance fast response time instead of multiple calls
+
+## Repository URL
+[Github link](http://www.wiu.edu/users/bio101/products)
