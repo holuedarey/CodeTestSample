@@ -17,13 +17,6 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = explode('/', trim($uri));
 
-// all of our endpoints start with /person
-// everything else results in a 404 Not Found
-//if ($uri[2] !== 'actors' or $uri[2] !== 'movies') {
-//    header("HTTP/1.1 404 Not Found");
-//    exit();
-//}
-
 // the user id is, of course, optional and must be a number:
 $movieId = null;
 $isActorEndpoint = false;
@@ -49,23 +42,5 @@ else {
     $actorsController = new ActorsController($conn, $requestMethod, $actorId, $page, $size);
     $actorsController->processRequest();
 }
-
-//$requestMethod = $_SERVER["REQUEST_METHOD"];
-//if ($isCommentEndpoint) {
-//    // comment controller
-//    // product_id, comment_id, method
-//    error_log("In comment\n");
-//
-//} else {
-//    // product controller
-//    // product_id, comment_id, method
-//    error_log("In product\n");
-//
-//    $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-//    $size = isset($_GET['size']) ? intval($_GET['size']) : 5;
-//
-//    $controller = new MoviesController($conn, $requestMethod, $movieId, $page, $size);
-//    $controller->processRequest();
-//}
 
 $conn->close();
